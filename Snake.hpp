@@ -28,5 +28,10 @@ class Snake
     void Update();
     void Render(sf::RenderTarget &target);
     void move(Direction direct);
+    void grow();
+    bool collide(sf::Vector2f const&pos);
+    bool collide(sf::RectangleShape const&rect);
+    bool collide(sf::CircleShape const&fruit);
+    bool collide(sf::Rect<float> fruit);
 
 };

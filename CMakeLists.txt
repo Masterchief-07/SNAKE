@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 project(SNAKE)
 
-add_executable(${PROJECT_NAME} main.cpp Game.hpp Game.cpp Snake.hpp Snake.cpp)
+add_executable(${PROJECT_NAME} main.cpp Game.hpp Game.cpp Snake.hpp Snake.cpp Fruit.cpp Fruit.hpp)
 
 add_subdirectory(SFML)
 

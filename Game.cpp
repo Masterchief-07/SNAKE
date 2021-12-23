@@ -19,6 +19,8 @@ void Game::initVariables()
     sf::Vector2f snakePos(videomode.height/2.f , videomode.width/2.f);
     snake = new Snake(snakePos);
     this->counter = 0;
+    this->points = 0;
+    this->fruit.setPosition({videomode.height/2.f +10.f , videomode.width/2.f +10.f});
 }
 
 void Game::initWindows()
@@ -64,6 +66,13 @@ void Game::update()
     {
         pollEvent();
         snake->Update();
+        if(snake->collide(this->fruit.getGlobalBounds()))
+        {
+            this->points+=1;
+            fruit.setPosition(randPos());
+            snake->grow();
+            std::cout<<"Points: "<<this->points<<"\n";
+        }
         counter =10;
     }
     else
@@ -77,5 +86,14 @@ void Game::render()
 {
     this->window->clear();
     snake->Render(*this->window);
+    fruit.render(*this->window);
     this->window->display();
+}
+
+sf::Vector2f Game::randPos()
+{
+    sf::Vector2f pos;
+    pos.x = rand() % this->window->getSize().x;
+    pos.y = rand() % this->window->getSize().y;
+    return pos;
 }

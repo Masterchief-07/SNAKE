@@ -21,7 +21,7 @@ Snake::Snake(sf::Vector2f const&pos)
 
 Snake::~Snake()
 {
-    
+
 }
 
 void Snake::move(Direction dir)
@@ -81,4 +81,31 @@ void Snake::Render(sf::RenderTarget &target)
     {
         target.draw(e);
     }
+}
+
+bool Snake::collide(sf::Vector2f const&pos)
+{
+    return this->snakeBody[0].getGlobalBounds().contains(pos);
+}
+
+bool Snake::collide(sf::RectangleShape const&rect)
+{
+    return this->snakeBody[0].getGlobalBounds().intersects(rect.getGlobalBounds());
+}
+
+bool Snake::collide(sf::CircleShape const&fruit)
+{
+    return this->snakeBody[0].getGlobalBounds().intersects(fruit.getGlobalBounds());
+}
+
+bool Snake::collide(sf::Rect<float> fruit)
+{
+    return this->snakeBody[0].getGlobalBounds().intersects(fruit);
+}
+
+void Snake::grow()
+{
+    
+    
+    //snakeBody.push_back();
 }

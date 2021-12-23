@@ -1,8 +1,12 @@
 #pragma once
 
+#include <iostream>
+
 #include<SFML/Graphics.hpp>
 #include<SFML/Window.hpp>
+
 #include "Snake.hpp"
+#include "Fruit.hpp"
 
 class Game
 {
@@ -14,15 +18,22 @@ class Game
 
     //snake
     Snake *snake;
+    //fruits
+    Fruit fruit;
+    //score
+    unsigned points;
 
     //counter
     unsigned counter;
-    
+
     //init
     void initVariables();
     void initWindows();
     
     void pollEvent();
+    //game logic
+    void snakeEatFruit();
+    sf::Vector2f randPos();
 
     public:
     Game();
