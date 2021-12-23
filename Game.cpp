@@ -9,6 +9,7 @@ Game::Game()
 Game::~Game()
 {
     delete this->window;
+    delete this->snake;
 }
 
 void Game::initVariables()
@@ -17,12 +18,13 @@ void Game::initVariables()
     this->videomode.width = 800;
     sf::Vector2f snakePos(videomode.height/2.f , videomode.width/2.f);
     snake = new Snake(snakePos);
+    this->counter = 0;
 }
 
 void Game::initWindows()
 {
     this->window = new sf::RenderWindow(this->videomode, "SNAKE", sf::Style::Close | sf::Style::Titlebar);
-    this->window->setFramerateLimit(5);
+    this->window->setFramerateLimit(60);
 }
 
 const bool Game::running() const
@@ -42,6 +44,14 @@ void Game::pollEvent()
             case sf::Event::KeyPressed:
                 if(this->event.key.code == sf::Keyboard::Escape)
                     this->window->close();
+                else if(this->event.key.code == sf::Keyboard::Up)
+                    snake->move(Direction::Up);
+                else if(this->event.key.code == sf::Keyboard::Down)
+                    snake->move(Direction::Down);
+                else if(this->event.key.code == sf::Keyboard::Left)
+                    snake->move(Direction::Left);
+                else if(this->event.key.code == sf::Keyboard::Right)
+                    snake->move(Direction::Right);
             default:
                 break;
         }
@@ -50,8 +60,16 @@ void Game::pollEvent()
 
 void Game::update()
 {
-    pollEvent();
-    //snake->Update();
+    if(counter == 0)
+    {
+        pollEvent();
+        snake->Update();
+        counter =10;
+    }
+    else
+    {
+        counter--;
+    }
 }
 
 

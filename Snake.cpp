@@ -19,6 +19,11 @@ Snake::Snake(sf::Vector2f const&pos)
     snakeDirectionVect.y = 0;
 }
 
+Snake::~Snake()
+{
+    
+}
+
 void Snake::move(Direction dir)
 {
     switch (dir)
@@ -26,33 +31,33 @@ void Snake::move(Direction dir)
     case Direction::Left:
         if(snakeDirection!= Direction::Right)
         {
-            snakeDirection = dir;
             snakeDirectionVect.x = -this->size.x;
             snakeDirectionVect.y = 0;
+            snakeDirection = dir;
         }
         break;
     case Direction::Right:
         if(snakeDirection!= Direction::Left)
         {
-            snakeDirection = dir;
             snakeDirectionVect.x = this->size.x;
             snakeDirectionVect.y = 0;
+            snakeDirection = dir;
         }
         break;
     case Direction::Up:
         if(snakeDirection!= Direction::Down)
         {
-            snakeDirection = dir;
             snakeDirectionVect.x = 0;
             snakeDirectionVect.y = -this->size.x;
+            snakeDirection = dir;
         }
         break;
     case Direction::Down:
         if(snakeDirection!= Direction::Up)
         {
-            snakeDirection = dir;
             snakeDirectionVect.x = 0;
             snakeDirectionVect.y = this->size.x;
+            snakeDirection = dir;
         }
         break;
 

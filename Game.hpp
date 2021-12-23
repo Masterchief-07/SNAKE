@@ -15,6 +15,9 @@ class Game
     //snake
     Snake *snake;
 
+    //counter
+    unsigned counter;
+    
     //init
     void initVariables();
     void initWindows();
