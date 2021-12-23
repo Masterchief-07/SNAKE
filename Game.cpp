@@ -22,7 +22,7 @@ void Game::initVariables()
 void Game::initWindows()
 {
     this->window = new sf::RenderWindow(this->videomode, "SNAKE", sf::Style::Close | sf::Style::Titlebar);
-    this->window->setFramerateLimit(60);
+    this->window->setFramerateLimit(5);
 }
 
 const bool Game::running() const
@@ -51,7 +51,7 @@ void Game::pollEvent()
 void Game::update()
 {
     pollEvent();
-    snake->Update();
+    //snake->Update();
 }
 
 

@@ -2,22 +2,72 @@
 
 Snake::Snake(sf::Vector2f const&pos)
 {
-    for(size_t i=0; i<4; i++)
+    for(int i=0; i<4; i++)
     {
         sf::RectangleShape shape;
-        sf::Vector2f snakepos;
-        snakepos.x = pos.x - i*this->size.x;
-        snakepos.y = pos.y;
+        sf::Vector2f snakepos{pos};
+        snakepos.x -= (i*(this->size.x+5.f));
+        //snakepos.x -= (i>0)? 5:0;
         shape.setPosition(snakepos);
         shape.setSize(this->size);
         shape.setFillColor(sf::Color::White);
         this->snakeBody.push_back(shape);
+        
+    }
+    snakeDirection = Direction::Right;
+    snakeDirectionVect.x = this->size.x;
+    snakeDirectionVect.y = 0;
+}
+
+void Snake::move(Direction dir)
+{
+    switch (dir)
+    {
+    case Direction::Left:
+        if(snakeDirection!= Direction::Right)
+        {
+            snakeDirection = dir;
+            snakeDirectionVect.x = -this->size.x;
+            snakeDirectionVect.y = 0;
+        }
+        break;
+    case Direction::Right:
+        if(snakeDirection!= Direction::Left)
+        {
+            snakeDirection = dir;
+            snakeDirectionVect.x = this->size.x;
+            snakeDirectionVect.y = 0;
+        }
+        break;
+    case Direction::Up:
+        if(snakeDirection!= Direction::Down)
+        {
+            snakeDirection = dir;
+            snakeDirectionVect.x = 0;
+            snakeDirectionVect.y = -this->size.x;
+        }
+        break;
+    case Direction::Down:
+        if(snakeDirection!= Direction::Up)
+        {
+            snakeDirection = dir;
+            snakeDirectionVect.x = 0;
+            snakeDirectionVect.y = this->size.x;
+        }
+        break;
+
+    default:
+        break;
     }
 }
 
 void Snake::Update()
 {
-
+    for(int i=snakeBody.size()-1; i>=1; i--)
+    {
+        snakeBody[i].setPosition(snakeBody[i-1].getPosition());
+    }
+    snakeBody[0].move(snakeDirectionVect);
 }
 
 void Snake::Render(sf::RenderTarget &target)
