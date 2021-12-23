@@ -2,6 +2,7 @@
 
 #include<SFML/Graphics.hpp>
 #include<SFML/Window.hpp>
+#include "Snake.hpp"
 
 class Game
 {
@@ -11,14 +12,18 @@ class Game
     sf::VideoMode videomode;
     sf::Event event;
 
-    //functions
+    //snake
+    Snake *snake;
+
+    //init
     void initVariables();
     void initWindows();
+    
+    void pollEvent();
 
     public:
     Game();
     ~Game();
-    void pollEvent();
     void render();
     void update();
     const bool running() const;

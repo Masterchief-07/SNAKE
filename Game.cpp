@@ -15,6 +15,8 @@ void Game::initVariables()
 {
     this->videomode.height = 800;
     this->videomode.width = 800;
+    sf::Vector2f snakePos(videomode.height/2.f , videomode.width/2.f);
+    snake = new Snake(snakePos);
 }
 
 void Game::initWindows()
@@ -49,12 +51,13 @@ void Game::pollEvent()
 void Game::update()
 {
     pollEvent();
+    snake->Update();
 }
 
 
 void Game::render()
 {
     this->window->clear();
-
+    snake->Render(*this->window);
     this->window->display();
 }
