@@ -34,6 +34,7 @@ class Game
     //game logic
     void snakeEatFruit();
     sf::Vector2f randPos();
+    bool GAMEOVER;
 
     public:
     Game();

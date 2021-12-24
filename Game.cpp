@@ -21,6 +21,7 @@ void Game::initVariables()
     this->counter = 0;
     this->points = 0;
     this->fruit.setPosition({videomode.height/2.f +10.f , videomode.width/2.f +10.f});
+    this->GAMEOVER = false;
 }
 
 void Game::initWindows()
@@ -63,7 +64,7 @@ void Game::pollEvent()
 void Game::update()
 {
     pollEvent();
-    if(counter == 0)
+    if(counter == 0 && !GAMEOVER)
     {
         if(snake->collide(this->fruit.getGlobalBounds()))
         {
@@ -90,6 +91,12 @@ void Game::update()
             sf::Vector2f newpos = {this->snake->getHeadPos().x, static_cast<float>(this->window->getSize().y)};
             snake->setHeadPos(newpos);
         }
+
+        if(this->snake->selfKill())
+        {
+            GAMEOVER = true;
+        }
+
         snake->Update();
         counter =5;
     }

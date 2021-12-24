@@ -128,3 +128,13 @@ void Snake::setHeadPos(sf::Vector2f const& newpos)
 {
     this->snakeBody[0].setPosition(newpos);
 }
+
+bool Snake::selfKill()
+{
+    for(int i=1; i<this->snakeBody.size(); i++)
+    {
+        if(this->collide(snakeBody[i]))
+            return true;
+    }
+    return false;
+}
