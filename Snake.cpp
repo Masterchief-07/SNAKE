@@ -2,11 +2,19 @@
 
 Snake::Snake(sf::Vector2f const&pos)
 {
-    for(int i=0; i<4; i++)
+    //head creation
+    sf::RectangleShape shape;
+    sf::Vector2f snakepos{pos};
+    //snakepos.x -= (i*(this->size.x));
+    //snakepos.x -= (i>0)? 5:0;
+    shape.setPosition(snakepos);
+    shape.setSize(this->size);
+    shape.setFillColor(sf::Color::Blue);
+    this->snakeBody.push_back(shape);
+    //body creation
+    for(int i=1; i<4; i++)
     {
-        sf::RectangleShape shape;
-        sf::Vector2f snakepos{pos};
-        snakepos.x -= (i*(this->size.x+5.f));
+        snakepos.x -= (i*(this->size.x));
         //snakepos.x -= (i>0)? 5:0;
         shape.setPosition(snakepos);
         shape.setSize(this->size);
@@ -105,7 +113,18 @@ bool Snake::collide(sf::Rect<float> fruit)
 
 void Snake::grow()
 {
-    
-    
+    sf::RectangleShape rec{this->snakeBody[snakeBody.size()-1]};
+    snakeBody.push_back(rec);
     //snakeBody.push_back();
+}
+
+const sf::Vector2f Snake::getHeadPos() const
+{
+    return this->snakeBody[0].getPosition();
+}
+    
+
+void Snake::setHeadPos(sf::Vector2f const& newpos)
+{
+    this->snakeBody[0].setPosition(newpos);
 }

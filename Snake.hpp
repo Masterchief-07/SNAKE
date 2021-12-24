@@ -33,5 +33,7 @@ class Snake
     bool collide(sf::RectangleShape const&rect);
     bool collide(sf::CircleShape const&fruit);
     bool collide(sf::Rect<float> fruit);
+    const sf::Vector2f getHeadPos() const;
+    void setHeadPos(sf::Vector2f const& newpos);
 
 };

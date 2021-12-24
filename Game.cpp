@@ -62,10 +62,9 @@ void Game::pollEvent()
 
 void Game::update()
 {
+    pollEvent();
     if(counter == 0)
     {
-        pollEvent();
-        snake->Update();
         if(snake->collide(this->fruit.getGlobalBounds()))
         {
             this->points+=1;
@@ -73,7 +72,26 @@ void Game::update()
             snake->grow();
             std::cout<<"Points: "<<this->points<<"\n";
         }
-        counter =10;
+        if(snake->getHeadPos().x >= this->window->getSize().x)
+        {
+            snake->setHeadPos({0.f, this->snake->getHeadPos().y});
+        }
+        else if(snake->getHeadPos().x < 0.f)
+        {
+            sf::Vector2f newpos = {static_cast<float>(this->window->getSize().x), this->snake->getHeadPos().y};
+            snake->setHeadPos(newpos);
+        }
+        else if(snake->getHeadPos().y >= this->window->getSize().y)
+        {
+            snake->setHeadPos({this->snake->getHeadPos().x, 0.f});
+        }
+        else if(snake->getHeadPos().y < 0.f)
+        {
+            sf::Vector2f newpos = {this->snake->getHeadPos().x, static_cast<float>(this->window->getSize().y)};
+            snake->setHeadPos(newpos);
+        }
+        snake->Update();
+        counter =5;
     }
     else
     {
