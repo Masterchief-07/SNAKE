@@ -66,6 +66,7 @@ void Game::update()
     pollEvent();
     if(counter == 0 && !GAMEOVER)
     {
+        //when the snake eat the fruit
         if(snake->collide(this->fruit.getGlobalBounds()))
         {
             this->points+=1;
@@ -73,6 +74,7 @@ void Game::update()
             snake->grow();
             std::cout<<"Points: "<<this->points<<"\n";
         }
+        //when the snake goes out of the screen
         if(snake->getHeadPos().x >= this->window->getSize().x)
         {
             snake->setHeadPos({0.f, this->snake->getHeadPos().y});
@@ -91,13 +93,15 @@ void Game::update()
             sf::Vector2f newpos = {this->snake->getHeadPos().x, static_cast<float>(this->window->getSize().y)};
             snake->setHeadPos(newpos);
         }
-
+        //when the snake eat itself
         if(this->snake->selfKill())
         {
             GAMEOVER = true;
         }
 
+        //update the snake state
         snake->Update();
+        //reduce the speed of the snake
         counter =5;
     }
     else
